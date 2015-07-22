@@ -19,6 +19,10 @@ register_activation_hook(__FILE__, array('Settings', 'initiateDefault'));
 add_action('admin_menu', array('Settings', 'registerSettingsPage'));
 
 function my_the_content_filter($content) {
+    $pluginState = get_option('wikiPluginState');
+    if (!$pluginState) {
+        return $content;
+    }
     $post_id = get_the_ID();
     $cachedContent = get_post_meta($post_id, 'wikiCache', TRUE);
     if (empty($cachedContent)) {
@@ -85,3 +89,17 @@ function clearCache() {
 }
 
 add_action('admin_init', 'clearCache');
+
+function stateChange() {
+    if (isset($_POST['wiki_chage_state'])) {
+        if (isset($_POST['wikiplugin_state'])) {
+            update_option('wikiPluginState', true);
+        } else {
+            update_option('wikiPluginState', false);
+        }
+        wp_redirect('/wp-admin/options-general.php?page=wiKi-links-settings');
+        exit();
+    }
+}
+
+add_action('admin_init', 'stateChange');
