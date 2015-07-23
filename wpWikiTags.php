@@ -12,11 +12,11 @@
 //loading libraries
 require_once __DIR__ . '/bootstrap.php';
 
-//initiate default settings page at the time of activation
-register_activation_hook(__FILE__, array('Settings', 'initiateDefault'));
+//initiate default settings at the time of activation
+register_activation_hook(__FILE__, array('wpWikiTags\Settings', 'initiateDefaultSettings'));
 
 //registering settings page
-add_action('admin_menu', array('Settings', 'registerSettingsPage'));
+add_action('admin_menu', array('wpWikiTags\Settings', 'registerSettingsPage'));
 
 function my_the_content_filter($content) {
     $pluginState = get_option('wikiPluginState');
@@ -37,7 +37,7 @@ function my_the_content_filter($content) {
             $text = $singleAbbrTags->textContent;
             $title = $singleAbbrTags->getAttribute('title');
             $atag = $dom->createElement('a', $text);
-            $wikiLinkText = getWikiLink($text);
+            $wikiLinkText = wpWikiTags\WikiApi::getWikiLinkByKeyword($text);
             if ($wikiLinkText) {
                 $wikiLink = $wikiLinkText;
             } else {
@@ -55,51 +55,8 @@ function my_the_content_filter($content) {
     return $cachedContent;
 }
 
-function getWikiLink($keyword) {
-    $keyword = str_replace(" ", "_", $keyword);
-    $opts = array(
-        'http' => array(
-            'method' => "GET",
-            'header' => "Accept-language: en\r\n" .
-            "Cookie: foo=bar\r\n"
-        )
-    );
+add_filter('the_content', array('wpWikiTags\Content', 'my_the_content_filter'));
 
-    $context = stream_context_create($opts);
-    $apiurl = "https://en.wikipedia.org/w/api.php?action=query&prop=links&plnamespace=4&pllimit=1&titles=$keyword&prop=info&inprop=url&format=json";
-    $response = file_get_contents($apiurl, false, $context);
-    $response = json_decode($response);
-    $pages = $response->query->pages;
-    foreach ($pages as $singlepage) {
-        if ($singlepage->pageid > 0) {
-            return $singlepage->canonicalurl;
-        }
-    }
-    return FALSE;
-}
+add_action('admin_init', array('wpWikiTags\Settings', 'clearCache'));
 
-add_filter('the_content', 'my_the_content_filter');
-
-function clearCache() {
-    if (isset($_GET['wikiaction'])) {
-        delete_post_meta_by_key('wikiCache');
-        wp_redirect('/wp-admin/options-general.php?page=wiKi-links-settings');
-        exit();
-    }
-}
-
-add_action('admin_init', 'clearCache');
-
-function stateChange() {
-    if (isset($_POST['wiki_chage_state'])) {
-        if (isset($_POST['wikiplugin_state'])) {
-            update_option('wikiPluginState', true);
-        } else {
-            update_option('wikiPluginState', false);
-        }
-        wp_redirect('/wp-admin/options-general.php?page=wiKi-links-settings');
-        exit();
-    }
-}
-
-add_action('admin_init', 'stateChange');
+add_action('admin_init', array('wpWikiTags\Settings', 'stateChange'));

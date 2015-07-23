@@ -1,0 +1,18 @@
+{
+    "name": "sourav/wpwikitags",
+    "description": "This plugin is aimed to convert all abbreviation tags within a WordPress post or page into corresponding Wikipedia links",
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^2.3",
+        "phpunit/phpunit": "^4.7",
+        "phpmd/phpmd": "^2.2",
+        "phpdocumentor/phpdocumentor": "^2.8"
+    },
+    "license": "GPLv2",
+    "authors": [
+        {
+            "name": "Sourav Mondal",
+            "email": "souravmondal10@gmail.com"
+        }
+    ],
+    "require": {}
+}
