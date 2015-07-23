@@ -10,7 +10,9 @@
 namespace wpWikiTags;
 
 use DOMDocument;
+
 use wpWikiTags\WikiApi;
+
 /**
  * This class is intended for converting html contents.
  * Methods of this class can also handle a black list and white list filter
@@ -21,7 +23,6 @@ class Content
      * Take html string, filtered keywords and returns parsed content as html string.
      * Replace the <abbr> tags into related wiki links a tags only if valid wiki link found.
      * parse the Document using PHP DomDocument library.
-     * 
      * @param string $content
      * @param array $filterKeywords
      * @param string $filterMode

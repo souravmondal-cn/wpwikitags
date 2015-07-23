@@ -8,10 +8,10 @@
   */
 
 namespace wpWikiTags;
+
 /**
  * This class is intended for findingout wikipedia urls of a perticular keyword.
  * This class also has the ability to maintain a blacklist or white list of keywords.
- * 
  * @property const WIKI_BASEURL base url of the wikipedia api
  * @property const RESPONSE_TYPE format of wikipedia api response
  * @property const WIKI_DOMAIN namespace or the domain of wikipedia server
@@ -23,7 +23,6 @@ class WikiApi
     const WIKI_DOMAIN = 4; // results from main wikipedia site
     /**
      * Findsout the wikipedia link for a keyword.
-     * 
      * @param string $keyword
      * @param array $filterKeywords
      * @param string $filterMode
@@ -66,7 +65,6 @@ class WikiApi
     }
     /**
      * check whetehr the given keyword is in blacklist or in whiyelist for chekcing its wiki url
-     * 
      * @param string $keyword
      * @param array $filterKeywords
      * @param string $filterMode
