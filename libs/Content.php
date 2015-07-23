@@ -2,9 +2,12 @@
 
 namespace wpWikiTags;
 
+use DOMDocument;
+use wpWikiTags\WikiApi;
+
 class Content {
 
-    public function convertContent($content) {
+    public static function convertContent($content) {
         $dom = new DOMDocument;
         $dom->loadHTML($content);
         $abbrTags = $dom->getElementsByTagName('abbr');
@@ -16,7 +19,7 @@ class Content {
             $text = $singleAbbrTags->textContent;
             $title = $singleAbbrTags->getAttribute('title');
             $atag = $dom->createElement('a', $text);
-            $wikiLinkText = wpWikiTags\WikiApi::getWikiLinkByKeyword($text);
+            $wikiLinkText = WikiApi::getWikiLinkByKeyword($text);
             if ($wikiLinkText) {
                 $wikiLink = $wikiLinkText;
             } else {

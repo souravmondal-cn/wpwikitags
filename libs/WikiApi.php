@@ -19,15 +19,15 @@ class WikiApi {
         $context = stream_context_create($opts);
         $queryParams = ['action' => 'query',
             'prop' => 'links',
-            'plnamespace' => WikiApi::wikiDomain,
+            'plnamespace' => self::wikiDomain,
             'pllimit' => '1',
             'titles' => str_replace(" ", "_", $keyword),
             'prop' => 'info',
             'inprop' => 'url',
-            'format' => WikiApi::responseType
+            'format' => self::responseType
         ];
         $queryUrl = http_build_query($queryParams);
-        $apiurl = WikiApi::wikiBaseUrl . '?' . $queryUrl;
+        $apiurl = self::wikiBaseUrl . '?' . $queryUrl;
         $response = json_decode(file_get_contents($apiurl, false, $context));
         $pages = $response->query->pages;
         foreach ($pages as $singlepage) {
