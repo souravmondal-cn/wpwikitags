@@ -137,15 +137,11 @@ function addWikiLinkToContent($content) {
  */
 function filterKeywordsSettings() {
     if (isset($_POST['wikisaveFilter'])) {
-        $blackList = json_encode(explode(',', $_POST['blacklist']));
-        $whiteList = json_encode(explode(',', $_POST['whitelist']));
+        $blackList = json_encode(array_map('strtolower', explode(',', $_POST['blacklist'])));
+        $whiteList = json_encode(array_map('strtolower', explode(',', $_POST['whitelist'])));
         update_option('wikiFilterState', $_POST['filterMode']);
         update_option('wikiBlackList', $blackList);
         update_option('wikiWhiteList', $whiteList);
         redirectToSettingsHome();
     }
-}
-
-function saveSearchedKeyword($keywordLink){
-    
 }

@@ -72,7 +72,7 @@ class WikiApi
      */
     private function checkKeywordFilter($keyword, $filterKeywords, $filterMode)
     {
-        $keyword = str_replace('_', ' ', $keyword);
+        $keyword = str_replace('_', ' ', strtolower($keyword));
         switch ($filterMode) {
             case '':
                 return true;

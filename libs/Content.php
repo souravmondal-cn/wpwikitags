@@ -58,8 +58,8 @@ class Content
     
     private function replaceDomNode($parentDom, $wikiLink, $text, $oldNode){
         $newDom = new DOMDocument;
-        $atag = $newDom->createElement('a', $text);
-        $atag->setAttribute('href', $wikiLink);
-        $oldNode->parentNode->replaceChild($parentDom->importNode($atag, true), $oldNode);
+        $newDom->loadHTML("<a href='$wikiLink'>$text</a>");
+        $node = $newDom->getElementsByTagName("a")->item(0);
+        $oldNode->parentNode->replaceChild($parentDom->importNode($node, true), $oldNode);
     }
 }
