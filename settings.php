@@ -7,7 +7,7 @@
   * @license GPLv2
   */
 
-
+use wpWikiTags\Content;
 /**
  * loads or restore the default settings.
  * executed at the time of plugin activation and any time when restore default is tiggered.
@@ -125,8 +125,8 @@ function addWikiLinkToContent($content) {
         'blackList' => (array) json_decode(get_option('wikiBlackList'))
     );
     $filterMode = get_option('wikiFilterState');
-    
-    $parsedContent = wpWikiTags\Content::convertContent($content, $filterKeyWords, $filterMode);
+    $contentLib = new Content();
+    $parsedContent = $contentLib->convertContent($content, $filterKeyWords, $filterMode);
     update_post_meta($postId, 'wikiCache', $parsedContent);
     return $parsedContent;
 }

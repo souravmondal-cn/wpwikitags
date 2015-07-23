@@ -27,7 +27,7 @@ class Content
      * @param string $filterMode
      * @return string
      */
-    public static function convertContent($content, $filterKeywords, $filterMode)
+    public function convertContent($content, $filterKeywords, $filterMode)
     {
         $dom = new DOMDocument;
         $dom->loadHTML($content);
@@ -39,13 +39,13 @@ class Content
         foreach ($domElemsToRemove as $singleAbbrTags) {
             $text = str_replace(" ", "_", $singleAbbrTags->textContent);
             $title = $singleAbbrTags->getAttribute('title');
-
             $atag = $dom->createElement('a', $text);
-            $wikiLinkText = WikiApi::getWikiLinkByKeyword($text, $filterKeywords, $filterMode);
-            if ($wikiLinkText) {
+            $wikiApiLib  =new WikiApi();
+            $wikiLinkText = $wikiApiLib->getWikiLinkByKeyword($text, $filterKeywords, $filterMode);
+            if ($wikiLinkText === true) {
                 $wikiLink = $wikiLinkText;
-            } elseif ($wikiLinkText !== 'blacklisted') {
-                $wikiLink = WikiApi::getWikiLinkByKeyword($title, $filterKeywords, $filterMode);
+            } elseif ($wikiLinkText != 'blacklisted') {
+                $wikiLink = $wikiApiLib->getWikiLinkByKeyword($title, $filterKeywords, $filterMode);
             } else {
                 $wikiLink = false;
             }

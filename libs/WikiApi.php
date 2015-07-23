@@ -29,9 +29,9 @@ class WikiApi
      * @param string $filterMode
      * @return string|boolean
      */
-    public static function getWikiLinkByKeyword($keyword, $filterKeywords, $filterMode)
+    public function getWikiLinkByKeyword($keyword, $filterKeywords, $filterMode)
     {
-        $isvalid = self::checkKeywordFilter($keyword, $filterKeywords, $filterMode);
+        $isvalid = $this->checkKeywordFilter($keyword, $filterKeywords, $filterMode);
 
         if (!$isvalid) {
             return 'blacklisted';
@@ -58,7 +58,7 @@ class WikiApi
         $response = json_decode(file_get_contents($apiurl, false, $context));
         $pages = $response->query->pages;
         foreach ($pages as $singlepage) {
-            if ($singlepage->pageid > 0) {
+            if (isset($singlepage->pageid) && $singlepage->pageid > 0) {
                 return $singlepage->canonicalurl;
             }
         }
@@ -72,7 +72,7 @@ class WikiApi
      * @param string $filterMode
      * @return boolean
      */
-    public static function checkKeywordFilter($keyword, $filterKeywords, $filterMode)
+    private function checkKeywordFilter($keyword, $filterKeywords, $filterMode)
     {
         $keyword = str_replace('_', ' ', $keyword);
         switch ($filterMode) {
