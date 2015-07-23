@@ -1,4 +1,4 @@
-Wordpress Wiki Plugins
+Wordpress Wiki Plugin
 ======================
 About Me: [Sourav Mondal]<a></a>
 
