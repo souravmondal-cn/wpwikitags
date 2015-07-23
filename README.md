@@ -1,5 +1,9 @@
 Wordpress Wiki Plugins
 ======================
+About Me: [Sourav Mondal]<a></a>
+
+  [Sourav Mondal]: http://souravmondal.co.in/resume
+
 
 This plugin is aimed to convert all abbreviation tags within a WordPress
 post or page into corresponding Wikipedia links.
