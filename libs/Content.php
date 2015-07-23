@@ -56,7 +56,8 @@ class Content
         return $dom->saveHTML();
     }
     
-    private function replaceDomNode($parentDom, $wikiLink, $text, $oldNode){
+    private function replaceDomNode($parentDom, $wikiLink, $text, $oldNode)
+    {
         $newDom = new DOMDocument;
         $newDom->loadHTML("<a href='$wikiLink'>$text</a>");
         $node = $newDom->getElementsByTagName("a")->item(0);

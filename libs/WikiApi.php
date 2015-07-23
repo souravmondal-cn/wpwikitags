@@ -9,6 +9,8 @@
 
 namespace wpWikiTags;
 
+use wpWikiTags\Keywords;
+
 /**
  * This class is intended for findingout wikipedia urls of a perticular keyword.
  * This class also has the ability to maintain a blacklist or white list of keywords.
@@ -35,6 +37,11 @@ class WikiApi
         if (!$isvalid) {
             return 'blacklisted';
         }
+        $keyWordCahced = new Keywords();
+        $cachedUrl = $keyWordCahced->getKeyWord($keyword);
+        if($cachedUrl){
+            return $cachedUrl;
+        }
         $opts = array(
             'http' => array(
                 'method' => "GET",
@@ -58,6 +65,7 @@ class WikiApi
         $pages = $response->query->pages;
         foreach ($pages as $singlepage) {
             if (isset($singlepage->pageid) && $singlepage->pageid > 0) {
+                $keyWordCahced->storeKeyWord(array('keyword'=>$keyword,'wikiurl'=>$singlepage->canonicalurl));
                 return $singlepage->canonicalurl;
             }
         }

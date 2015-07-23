@@ -12,4 +12,4 @@ check: vendor
 	./vendor/bin/phpmd libs/ text phpmd.xml
 
 phpdoc: vendor
-	./vendor/bin/phpdoc -f settings.php -d libs/ -t phpDocs/
+	./vendor/bin/phpdoc -f snippets.php -d libs/ -t phpDocs/

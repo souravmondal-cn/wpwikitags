@@ -32,3 +32,9 @@ add_action('admin_init', 'defaultSettings');
 
 //save blacklist and whitelist settings
 add_action('admin_init', 'filterKeywordsSettings');
+
+//clear the keywords cache from db
+add_action('admin_init', 'clearKeywordsCache');
+
+//enable or diable the plugin's keyword caching module
+add_action('admin_init', 'keyWordCacheStateChange');

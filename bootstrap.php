@@ -17,4 +17,4 @@ spl_autoload_register(function ($classPath) {
     require __DIR__ . '/libs/' . implode($sections, '/') . '.php';
 });
 
-require_once __DIR__ . '/settings.php';
+require_once __DIR__ . '/snippets.php';
