@@ -12,7 +12,7 @@ Requirements
 ------------
 
 -   Minimum Wordpress Version: 3.8
--   PHP Version: 5.4
+-   Minimum PHP Version: 5.4
 -   PHP DomDocument Library
 
 Installation Guide
