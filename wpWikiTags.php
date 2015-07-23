@@ -26,3 +26,9 @@ add_action('admin_init', 'clearCache');
 
 //enable or diable the plugin's functionality (still in active state)
 add_action('admin_init', 'stateChange');
+
+//restore default settings of the plugin
+add_action('admin_init', 'defaultSettings');
+
+//save blacklist and whitelist settings
+add_action('admin_init', 'filterKeywordsSettings');

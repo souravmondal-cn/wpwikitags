@@ -1,4 +1,7 @@
 {
     "wikiPluginState": true,
-    "contentParsing": "server"
+    "contentParsing": "server",
+    "wikiFilterState": "",
+    "wikiBlackList": "",
+    "wikiWhiteList": ""
 }

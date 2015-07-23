@@ -1,17 +1,26 @@
 <?php
 
 function defaultSettings() {
-    $defaultSettingsFilePath = __DIR__ . '/defaultSettings.json';
-    if (file_exists($defaultSettingsFilePath)) {
-        $settings = json_decode(file_get_contents($defaultSettingsFilePath));
-    } else {
-        $settings = array(
-            "wikiPluginState" => true,
-            "contentParsing" => "server"
-        );
+    if (isset($_GET['wikiaction']) && $_GET['wikiaction'] == 'restoreDefault') {
+        $defaultSettingsFilePath = __DIR__ . '/defaultSettings.json';
+        if (file_exists($defaultSettingsFilePath)) {
+            $settings = json_decode(file_get_contents($defaultSettingsFilePath));
+        } else {
+            $settings = (object) array(
+                        "wikiPluginState" => true,
+                        "contentParsing" => "server",
+                        "wikiFilterState" => "",
+                        "wikiBlackList" => "",
+                        "wikiWhiteList" => ""
+            );
+        }
+        update_option('wikiPluginState', $settings->wikiPluginState);
+        update_option('contentParsing', $settings->contentParsing);
+        update_option('wikiFilterState', '');
+        update_option('wikiBlackList', '');
+        update_option('wikiWhiteList', '');
+        redirectToSettingsHome();
     }
-    update_option('wikiPluginState', $settings['wikiPluginState']);
-    update_option('contentParsing', $settings['contentParsing']);
 }
 
 function registerSettingsPage() {
@@ -32,7 +41,7 @@ function stateChange() {
 }
 
 function clearCache() {
-    if (isset($_GET['wikiaction'])) {
+    if (isset($_GET['wikiaction']) && $_GET['wikiaction'] == 'clearcache') {
         delete_post_meta_by_key('wikiCache');
         redirectToSettingsHome();
     }
@@ -53,7 +62,24 @@ function addWikiLinkToContent($content) {
     if (!empty($cachedContent)) {
         return $cachedContent;
     }
-    $parsedContent = wpWikiTags\Content::convertContent($content);
+    $filterKeyWords = array(
+        'whiteList' => (array) json_decode(get_option('wikiWhiteList')),
+        'blackList' => (array) json_decode(get_option('wikiBlackList'))
+    );
+    $filterMode = get_option('wikiFilterState');
+    
+    $parsedContent = wpWikiTags\Content::convertContent($content, $filterKeyWords, $filterMode);
     update_post_meta($postId, 'wikiCache', $parsedContent);
     return $parsedContent;
+}
+
+function filterKeywordsSettings() {
+    if (isset($_POST['wikisaveFilter'])) {
+        $blackList = json_encode(explode(',', $_POST['blacklist']));
+        $whiteList = json_encode(explode(',', $_POST['whitelist']));
+        update_option('wikiFilterState', $_POST['filterMode']);
+        update_option('wikiBlackList', $blackList);
+        update_option('wikiWhiteList', $whiteList);
+        redirectToSettingsHome();
+    }
 }
