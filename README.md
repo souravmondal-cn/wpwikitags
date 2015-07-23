@@ -34,3 +34,9 @@ To check the code quality on PSR2 standard
 ```bash
     make check
 ```
+
+To generate PhpDocs run
+
+```bash
+    make phpdoc
+```
