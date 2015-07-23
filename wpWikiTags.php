@@ -38,3 +38,6 @@ add_action('admin_init', 'clearKeywordsCache');
 
 //enable or diable the plugin's keyword caching module
 add_action('admin_init', 'keyWordCacheStateChange');
+
+//save url pattern
+add_action('admin_init', 'saveWikiUrlPattern');

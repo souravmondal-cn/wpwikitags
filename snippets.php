@@ -146,6 +146,7 @@ function filterKeywordsSettings() {
         redirectToSettingsHome();
     }
 }
+
 /**
  * clears all the cached keywords and url wiki urls
  * @param null
@@ -170,6 +171,13 @@ function keyWordCacheStateChange() {
         } else {
             update_option('wikiKeywordCacheState', false);
         }
+        redirectToSettingsHome();
+    }
+}
+
+function saveWikiUrlPattern() {
+    if (isset($_POST['wiki_urlpattern'])) {
+        update_option('wikiUrlPattern', $_POST['wiki_urlpattern']);
         redirectToSettingsHome();
     }
 }

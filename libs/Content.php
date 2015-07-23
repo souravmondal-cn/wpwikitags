@@ -41,25 +41,32 @@ class Content
             $text = str_replace(" ", "_", $singleAbbrTags->textContent);
             $title = $singleAbbrTags->getAttribute('title');
             $wikiApiLib  =new WikiApi();
-            $wikiLinkText = $wikiApiLib->getWikiLinkByKeyword($text, $filterKeywords, $filterMode);
-            if ($wikiLinkText === true) {
-                $wikiLink = $wikiLinkText;
-            } elseif ($wikiLinkText != 'blacklisted') {
-                $wikiLink = $wikiApiLib->getWikiLinkByKeyword($title, $filterKeywords, $filterMode);
-            } else {
-                $wikiLink = false;
+            $wikiInfo = $wikiApiLib->getWikiLinkByKeyword($text, $filterKeywords, $filterMode);
+            
+            if($wikiInfo === false){
+                $wikiInfo = $wikiApiLib->getWikiLinkByKeyword($title, $filterKeywords, $filterMode);
             }
-            if ($wikiLink) {
-                $this->replaceDomNode($dom, $wikiLink, $text, $singleAbbrTags);
+            
+            if ($wikiInfo == 'blacklisted') {
+                $wikiInfo = false;
+            }
+            
+            if ($wikiInfo) {
+                $this->replaceDomNode($dom, $wikiInfo, $text, $singleAbbrTags);
             }
         }
         return $dom->saveHTML();
     }
     
-    private function replaceDomNode($parentDom, $wikiLink, $text, $oldNode)
+    private function replaceDomNode($parentDom, $wikiInfo, $text, $oldNode)
     {
+        $wikiInfo = (array) $wikiInfo;
+        $urlPattern = stripslashes(get_option('wikiUrlPattern'));
+        $newUrl = str_replace('$articleurl', $wikiInfo['wikiurl'], $urlPattern);
+        $newUrl = str_replace('$title', $wikiInfo['title'], $newUrl);
+        $newUrl = str_replace('$text', $text, $newUrl);
         $newDom = new DOMDocument;
-        $newDom->loadHTML("<a href='$wikiLink'>$text</a>");
+        $newDom->loadHTML($newUrl);
         $node = $newDom->getElementsByTagName("a")->item(0);
         $oldNode->parentNode->replaceChild($parentDom->importNode($node, true), $oldNode);
     }

@@ -16,13 +16,11 @@ use wpWikiTags\Keywords;
  * This class also has the ability to maintain a blacklist or white list of keywords.
  * @property const WIKI_BASEURL base url of the wikipedia api
  * @property const RESPONSE_TYPE format of wikipedia api response
- * @property const WIKI_DOMAIN namespace or the domain of wikipedia server
  */
 class WikiApi
 {
     const WIKI_BASEURL = 'https://en.wikipedia.org/w/api.php';
     const RESPONSE_TYPE = 'json';
-    const WIKI_DOMAIN = 4; // results from main wikipedia site
     /**
      * Findsout the wikipedia link for a keyword.
      * @param string $keyword
@@ -39,9 +37,9 @@ class WikiApi
         }
         $keyWordCahced = new Keywords();
         if(get_option('wikiKeywordCacheState')){
-            $cachedUrl = $keyWordCahced->getKeyWord($keyword);
-            if($cachedUrl){
-                return $cachedUrl;
+            $cachedWikiKeyword = $keyWordCahced->getKeyWord($keyword);
+            if($cachedWikiKeyword){
+                return $cachedWikiKeyword;
             }
         }
         $opts = array(
@@ -54,8 +52,6 @@ class WikiApi
         $context = stream_context_create($opts);
         $queryParams = ['action' => 'query',
             'prop' => 'links',
-            'plnamespace' => self::WIKI_DOMAIN,
-            'pllimit' => '1',
             'titles' => str_replace(" ", "_", $keyword),
             'prop' => 'info',
             'inprop' => 'url',
@@ -67,8 +63,8 @@ class WikiApi
         $pages = $response->query->pages;
         foreach ($pages as $singlepage) {
             if (isset($singlepage->pageid) && $singlepage->pageid > 0) {
-                $keyWordCahced->storeKeyWord(array('keyword'=>$keyword,'wikiurl'=>$singlepage->canonicalurl));
-                return $singlepage->canonicalurl;
+                $keyWordCahced->storeKeyWord(array('keyword'=>$keyword,'wikiurl'=>$singlepage->canonicalurl,'title'=>$singlepage->title));
+                return array('keyword'=>$keyword,'wikiurl'=>$singlepage->canonicalurl, 'title'=>$singlepage->title);
             }
         }
         return false;

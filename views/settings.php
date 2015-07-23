@@ -1,6 +1,6 @@
 <h1>Wiki Links Settings</h1>
 <hr/>
-<table class="wp-list-table widefat fixed striped posts">
+<table class="wp-list-table striped">
     <tr>
         <form method="post">
             <td>
@@ -40,10 +40,20 @@
         </td>
     </tr>
     <tr>
+        <td>URL pattern</td>
+        <td>
+            <form method="post">
+                <input type='text' name='wiki_urlpattern' value='<?php echo stripslashes(get_option('wikiUrlPattern')); ?>' placeholder='URL Pattern' class='regular-text'/>
+                <input type="submit" name="saveUrlpattern" value="save" class="button button-primary button-small"/>
+            </form>
+        </td>
+    </tr>
+    <tr>
         <td colspan="2"><h3>Black List and White List of Keywords</h3></td>
     </tr>
-    <form method="post">
+    
         <tr>
+            <form method="post">
             <td colspan="2">
                 Enable
                 <select name='filterMode'>
@@ -65,6 +75,6 @@
             <td colspan="2">
                 <input type="submit" name="wikisaveFilter" value="Save" class="button button-primary button-small"/>
             </td>
+            </form>
         </tr>
-    </form>
 </table>
