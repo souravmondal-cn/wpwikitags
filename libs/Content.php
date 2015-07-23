@@ -40,7 +40,6 @@ class Content
         foreach ($domElemsToRemove as $singleAbbrTags) {
             $text = str_replace(" ", "_", $singleAbbrTags->textContent);
             $title = $singleAbbrTags->getAttribute('title');
-            $atag = $dom->createElement('a', $text);
             $wikiApiLib  =new WikiApi();
             $wikiLinkText = $wikiApiLib->getWikiLinkByKeyword($text, $filterKeywords, $filterMode);
             if ($wikiLinkText === true) {
@@ -51,10 +50,15 @@ class Content
                 $wikiLink = false;
             }
             if ($wikiLink) {
-                $atag->setAttribute('href', $wikiLink);
-                $singleAbbrTags->parentNode->replaceChild($atag, $singleAbbrTags);
+                $this->replaceDomNode($dom, $wikiLink, $text, $singleAbbrTags);
             }
         }
         return $dom->saveHTML();
+    }
+    
+    private function replaceDomNode($dom, $wikiLink, $text, $oldNode){
+        $atag = $dom->createElement('a', $text);
+        $atag->setAttribute('href', $wikiLink);
+        $oldNode->parentNode->replaceChild($atag, $oldNode);
     }
 }

@@ -145,3 +145,7 @@ function filterKeywordsSettings() {
         redirectToSettingsHome();
     }
 }
+
+function saveSearchedKeyword($keywordLink){
+    
+}
