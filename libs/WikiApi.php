@@ -63,8 +63,9 @@ class WikiApi
         $pages = $response->query->pages;
         foreach ($pages as $singlepage) {
             if (isset($singlepage->pageid) && $singlepage->pageid > 0) {
-                $keyWordCahced->storeKeyWord(array('keyword'=>$keyword,'wikiurl'=>$singlepage->canonicalurl,'title'=>$singlepage->title));
-                return array('keyword'=>$keyword,'wikiurl'=>$singlepage->canonicalurl, 'title'=>$singlepage->title);
+                $wikiInfo = array('keyword'=>$keyword,'wikiurl'=>$singlepage->canonicalurl,'title'=>$singlepage->title);
+                $keyWordCahced->storeKeyWord($wikiInfo);
+                return $wikiInfo;
             }
         }
         return false;

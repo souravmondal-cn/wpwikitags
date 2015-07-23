@@ -26,17 +26,20 @@ function defaultSettings() {
             $settings = (object) array(
                         "wikiPluginState" => true,
                         "contentParsing" => "server",
-                        "wikiFilterState" => "",
-                        "wikiBlackList" => "",
-                        "wikiWhiteList" => ""
+                        "wikiFilterState" => true,
+                        "urlPattern" => '<a href="$articleurl" title="$title" class="special">$text</a>',
+                        "keyWordCachingStatus" => true
             );
         }
         update_option('wikiPluginState', $settings->wikiPluginState);
         update_option('contentParsing', $settings->contentParsing);
-        update_option('wikiFilterState', '');
+        update_option('wikiFilterState', $settings->wikiFilterState);
         update_option('wikiBlackList', '');
         update_option('wikiWhiteList', '');
-        redirectToSettingsHome();
+        update_option('wikiUrlPattern', $settings->urlPattern);
+        update_option('wikiKeywordCacheState', $settings->keyWordCachingStatus);
+        update_option('wikiCachedKeyWords', '');
+        delete_post_meta_by_key('wikiCache');
     }
 }
 
@@ -50,11 +53,11 @@ function defaultSettings() {
  * @return null
  */
 function registerSettingsPage() {
-    add_submenu_page(
-            'options-general.php', 'WiKi Links Settings', 'WiKi Links Settings', 'manage_options', 'wiKi-links-settings', function() {
-        require_once __DIR__ . '/views/settings.php';
-    }
-    );
+    add_submenu_page('options-general.php', 'WiKi Links Settings', 'WiKi Links Settings', 'manage_options', 'wiKi-links-settings', 'includeSettingsWikiPage');
+}
+
+function includeSettingsWikiPage() {
+    require_once __DIR__ . '/views/settings.php';
 }
 
 /**
