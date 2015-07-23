@@ -1,5 +1,10 @@
 <?php
-
+/*
+ * automatically loads the required class which is in wpWikiTags namespace
+ * $classPath is the string which contains class name and napespace 
+ * @param string $classPath
+ * @return null
+ */
 spl_autoload_register(function ($classPath) {
 
     $sections = explode('\\', $classPath);
