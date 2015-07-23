@@ -18,7 +18,15 @@ Installation Guide
  - Way 2: Download this repository somewhere in your computer from github and paste the folder inside the wp-content/plugins directory.or upload the directory via ftp.
 
 
-Development guide
+Development guide(LAMP Stack)
 ------------------
 
-run composer install to include required dependencies
+to initialize the development environment run
+```bash
+    make
+```
+
+To check the code quality on PSR2 standard
+```bash
+    make check
+```

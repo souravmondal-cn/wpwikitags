@@ -1,5 +1,4 @@
 build: vendor
-	./vendor/bin/doctrine migrations:migrate --no-interaction
 
 vendor: composer.json
 	composer install
