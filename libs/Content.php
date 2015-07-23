@@ -56,9 +56,10 @@ class Content
         return $dom->saveHTML();
     }
     
-    private function replaceDomNode($dom, $wikiLink, $text, $oldNode){
-        $atag = $dom->createElement('a', $text);
+    private function replaceDomNode($parentDom, $wikiLink, $text, $oldNode){
+        $newDom = new DOMDocument;
+        $atag = $newDom->createElement('a', $text);
         $atag->setAttribute('href', $wikiLink);
-        $oldNode->parentNode->replaceChild($atag, $oldNode);
+        $oldNode->parentNode->replaceChild($parentDom->importNode($atag, true), $oldNode);
     }
 }
