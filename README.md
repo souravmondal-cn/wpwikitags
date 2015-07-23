@@ -14,4 +14,11 @@ Requirements
 Installation Guide
 ------------------
 
-Development guide: run composer install to include required dependencies
+ - Way 1: Clone this repository inside wp-content/plugins directory, goto wp admin admin activate this plugin from plugins list.
+ - Way 2: Download this repository somewhere in your computer from github and paste the folder inside the wp-content/plugins directory.or upload the directory via ftp.
+
+
+Development guide
+------------------
+
+run composer install to include required dependencies
