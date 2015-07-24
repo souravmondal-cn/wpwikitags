@@ -11,7 +11,6 @@ use wpWikiTags\Content;
 
 /**
  * loads or restore the default settings.
- * executed at the time of plugin activation and any time when restore default is tiggered.
  * reads the default config from a json file , if not file present then hardcoded settings.
  * 
  * @param null
