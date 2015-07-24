@@ -22,6 +22,13 @@ Installation Guide
  - Way 2: Download this repository somewhere in your computer from github and paste the folder inside the wp-content/plugins directory.or upload the directory via ftp.
 
 
+Settings page of the Admin
+------------------
+
+ - Log into the wp admin panel.
+ - The settings page is under main Settings menu.
+ - Goto the menu called `Wiki Links Settings`.
+
 Development guide(LAMP Stack)
 ------------------
 
