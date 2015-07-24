@@ -47,3 +47,15 @@ To generate PhpDocs run (docs generated inside the phpDocs directory)
 ```bash
     make phpdoc
 ```
+
+To write PhpUnit Tests
+
+ - write all the tests inside the /test folder
+ - keep all the related resources inside that directory
+ - for any random generated tests outputs, keep them on .gitignore
+
+To Run tests
+
+```bash
+    make test
+```
