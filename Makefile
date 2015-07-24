@@ -15,3 +15,6 @@ phpdoc: vendor
 	rm -fr phpDocs/
 	mkdir -p phpDocs/
 	./vendor/bin/phpdoc -f snippets.php -d libs/ -t phpDocs/
+
+test:
+	./vendor/bin/phpunit -c ./
