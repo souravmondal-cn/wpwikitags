@@ -55,7 +55,10 @@ function defaultSettings() {
 function registerSettingsPage() {
     add_submenu_page('options-general.php', 'WiKi Links Settings', 'WiKi Links Settings', 'manage_options', 'wiKi-links-settings', 'includeSettingsWikiPage');
 }
-
+/**
+ * This function is a callback from registerSettingsPage.
+ * This function is including the view file in admin
+ */
 function includeSettingsWikiPage() {
     require_once __DIR__ . '/views/settings.php';
 }

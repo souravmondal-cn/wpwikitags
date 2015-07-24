@@ -58,6 +58,13 @@ class Content
         return $dom->saveHTML();
     }
     
+    /**
+     * This method replace the <abbr> tag with a new html tag.
+     * @param DomDocument $parentDom
+     * @param array $wikiInfo
+     * @param string $text
+     * @param DomElement $oldNode
+     */
     private function replaceDomNode($parentDom, $wikiInfo, $text, $oldNode)
     {
         $wikiInfo = (array) $wikiInfo;
