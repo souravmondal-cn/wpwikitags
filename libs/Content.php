@@ -43,7 +43,7 @@ class Content
             $wikiApiLib  =new WikiApi();
             $wikiInfo = $wikiApiLib->getWikiLinkByKeyword($text, $filterKeywords, $filterMode);
             
-            if($wikiInfo === false){
+            if ($wikiInfo === false) {
                 $wikiInfo = $wikiApiLib->getWikiLinkByKeyword($title, $filterKeywords, $filterMode);
             }
             

@@ -36,9 +36,9 @@ class WikiApi
             return 'blacklisted';
         }
         $keyWordCahced = new Keywords();
-        if(get_option('wikiKeywordCacheState')){
+        if (get_option('wikiKeywordCacheState')) {
             $cachedWikiKeyword = $keyWordCahced->getKeyWord($keyword);
-            if($cachedWikiKeyword){
+            if ($cachedWikiKeyword) {
                 return $cachedWikiKeyword;
             }
         }

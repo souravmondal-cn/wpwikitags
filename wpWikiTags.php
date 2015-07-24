@@ -13,7 +13,7 @@
 require_once __DIR__ . '/bootstrap.php';
 
 //initiate default settings at the time of activation
-register_activation_hook(__FILE__, 'initiateDefaultSettings');
+register_activation_hook(__FILE__, 'defaultSettings');
 
 //registering settings page in admin
 add_action('admin_menu', 'registerSettingsPage');
