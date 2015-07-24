@@ -42,7 +42,7 @@ To check the code quality on PSR2 standard
     make check
 ```
 
-To generate PhpDocs run
+To generate PhpDocs run (docs generated inside the phpDocs directory)
 
 ```bash
     make phpdoc
