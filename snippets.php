@@ -20,6 +20,7 @@ use wpWikiTags\Content;
 function defaultSettings() {
     if (isset($_GET['wikiaction']) && $_GET['wikiaction'] == 'restoreDefault') {
         setDefaultSettingsActivation();
+        redirectToSettingsHome();
     }
 }
 
