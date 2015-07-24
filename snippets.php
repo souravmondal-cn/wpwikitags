@@ -104,7 +104,7 @@ function clearCache() {
  * @return null
  */
 function redirectToSettingsHome() {
-    wp_redirect('/wp-admin/options-general.php?page=wiKi-links-settings');
+    wp_redirect(site_url().'/wp-admin/options-general.php?page=wiKi-links-settings');
     exit();
 }
 

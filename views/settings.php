@@ -1,3 +1,4 @@
+<?php $siteUrl = site_url(); ?>
 <h1>Wiki Links Settings</h1>
 <hr/>
 <table class="wp-list-table striped">
@@ -14,13 +15,13 @@
     <tr>
         <td>Cache Page/Post Content</td>
         <td>
-            <a href="/wp-admin/options-general.php?page=wiKi-links-settings&wikiaction=clearcache" class="button button-primary button-small">Clear All Cache</a>
+            <a href="<?php echo $siteUrl; ?>/wp-admin/options-general.php?page=wiKi-links-settings&wikiaction=clearcache" class="button button-primary button-small">Clear All Cache</a>
         </td>
     </tr>
     <tr>
         <td>Restore Default Settings</td>
         <td>
-            <a href="/wp-admin/options-general.php?page=wiKi-links-settings&wikiaction=restoreDefault" class="button button-primary button-small">Restore Default Settings</a>
+            <a href="<?php echo $siteUrl; ?>/wp-admin/options-general.php?page=wiKi-links-settings&wikiaction=restoreDefault" class="button button-primary button-small">Restore Default Settings</a>
         </td>
     </tr>
     <tr>
@@ -36,7 +37,7 @@
     <tr>
         <td>Clear keywords caching</td>
         <td>
-            <a href="/wp-admin/options-general.php?page=wiKi-links-settings&wikiaction=clearkeywordcache" class="button button-primary button-small">Clear Keyword Cache</a>
+            <a href="<?php echo $siteUrl; ?>/wp-admin/options-general.php?page=wiKi-links-settings&wikiaction=clearkeywordcache" class="button button-primary button-small">Clear Keyword Cache</a>
         </td>
     </tr>
     <tr>

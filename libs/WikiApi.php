@@ -50,13 +50,13 @@ class WikiApi
             )
         );
         $context = stream_context_create($opts);
-        $queryParams = ['action' => 'query',
+        $queryParams = array('action' => 'query',
             'prop' => 'links',
             'titles' => str_replace(" ", "_", $keyword),
             'prop' => 'info',
             'inprop' => 'url',
             'format' => self::RESPONSE_TYPE
-        ];
+        );
         $queryUrl = http_build_query($queryParams);
         $apiurl = self::WIKI_BASEURL . '?' . $queryUrl;
         $response = json_decode(file_get_contents($apiurl, false, $context));
