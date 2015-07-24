@@ -19,30 +19,39 @@ use wpWikiTags\Content;
  */
 function defaultSettings() {
     if (isset($_GET['wikiaction']) && $_GET['wikiaction'] == 'restoreDefault') {
-        $defaultSettingsFilePath = __DIR__ . '/fixtures.json';
-        if (file_exists($defaultSettingsFilePath)) {
-            $settings = json_decode(file_get_contents($defaultSettingsFilePath));
-        } else {
-            $settings = (object) array(
-                "wikiPluginState" => true,
-                "contentParsing" => "server",
-                "wikiFilterState" => '',
-                "urlPattern" => '<a href="$articleurl" title="$title">$text</a>',
-                "keyWordCachingStatus" => true
-            );
-        }
-        update_option('wikiPluginState', $settings->wikiPluginState);
-        update_option('contentParsing', $settings->contentParsing);
-        update_option('wikiFilterState', $settings->wikiFilterState);
-        update_option('wikiBlackList', '');
-        update_option('wikiWhiteList', '');
-        update_option('wikiUrlPattern', $settings->urlPattern);
-        update_option('wikiKeywordCacheState', $settings->keyWordCachingStatus);
-        update_option('wikiCachedKeyWords', '');
-        delete_post_meta_by_key('wikiCache');
+        setDefaultSettingsActivation();
     }
 }
 
+/**
+ * This function is tiggered at the time of activation of the plugin
+ * This function is inserting the default settings into database
+ * @param null
+ * @return null
+ */
+function setDefaultSettingsActivation(){
+    $defaultSettingsFilePath = __DIR__ . '/fixtures.json';
+    if (file_exists($defaultSettingsFilePath)) {
+        $settings = json_decode(file_get_contents($defaultSettingsFilePath));
+    } else {
+        $settings = (object) array(
+            "wikiPluginState" => true,
+            "contentParsing" => "server",
+            "wikiFilterState" => '',
+            "urlPattern" => '<a href="$articleurl" title="$title">$text</a>',
+            "keyWordCachingStatus" => true
+        );
+    }
+    update_option('wikiPluginState', $settings->wikiPluginState);
+    update_option('contentParsing', $settings->contentParsing);
+    update_option('wikiFilterState', $settings->wikiFilterState);
+    update_option('wikiBlackList', '');
+    update_option('wikiWhiteList', '');
+    update_option('wikiUrlPattern', $settings->urlPattern);
+    update_option('wikiKeywordCacheState', $settings->keyWordCachingStatus);
+    update_option('wikiCachedKeyWords', '');
+    delete_post_meta_by_key('wikiCache');
+}
 /**
  * register the settings page for this plugin in wp-admin section.
  * the settings page is registered under a sub section of wordpress main settings section.
