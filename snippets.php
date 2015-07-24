@@ -24,11 +24,11 @@ function defaultSettings() {
             $settings = json_decode(file_get_contents($defaultSettingsFilePath));
         } else {
             $settings = (object) array(
-                        "wikiPluginState" => true,
-                        "contentParsing" => "server",
-                        "wikiFilterState" => true,
-                        "urlPattern" => '<a href="$articleurl" title="$title" class="special">$text</a>',
-                        "keyWordCachingStatus" => true
+                "wikiPluginState" => true,
+                "contentParsing" => "server",
+                "wikiFilterState" => true,
+                "urlPattern" => '<a href="$articleurl" title="$title" class="special">$text</a>',
+                "keyWordCachingStatus" => true
             );
         }
         update_option('wikiPluginState', $settings->wikiPluginState);
@@ -178,6 +178,11 @@ function keyWordCacheStateChange() {
     }
 }
 
+/**
+ * This function save the url pattern of the <a> tag into database
+ * @param null
+ * @return null
+ */
 function saveWikiUrlPattern() {
     if (isset($_POST['wiki_urlpattern'])) {
         update_option('wikiUrlPattern', $_POST['wiki_urlpattern']);
