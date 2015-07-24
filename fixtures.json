@@ -1,9 +1,9 @@
 {
     "wikiPluginState": true,
     "contentParsing": "server",
-    "wikiFilterState": true,
+    "wikiFilterState": "",
     "wikiBlackList": "",
     "wikiWhiteList": "",
     "keyWordCachingStatus": true,
-    "urlPattern": "<a href=\"$articleurl\" title=\"$title\" class=\"special\">$text</a>"
+    "urlPattern": "<a href=\"$articleurl\" title=\"$title\">$text</a>"
 }

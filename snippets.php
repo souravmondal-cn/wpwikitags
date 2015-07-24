@@ -26,8 +26,8 @@ function defaultSettings() {
             $settings = (object) array(
                 "wikiPluginState" => true,
                 "contentParsing" => "server",
-                "wikiFilterState" => true,
-                "urlPattern" => '<a href="$articleurl" title="$title" class="special">$text</a>',
+                "wikiFilterState" => '',
+                "urlPattern" => '<a href="$articleurl" title="$title">$text</a>',
                 "keyWordCachingStatus" => true
             );
         }
